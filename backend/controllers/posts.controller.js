@@ -43,7 +43,7 @@ export async function deletePost(req, res, next) {
             return next(errorHandler(404, "Post not found"));
         }
         await deleteFile(post.imageUrl);
-        await post.remove();
+        await Post.findByIdAndDelete({ _id: id });
         res.json(post);
     } catch (error) {
         next(errorHandler(500, error.message));
