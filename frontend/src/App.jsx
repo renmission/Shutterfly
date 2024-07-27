@@ -1,14 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Posts from './pages/posts/Posts'
+import { RouterProvider } from "react-router-dom"
+import ErrorBoundery from "./utils/ErrorBoundery"
+import router from "./router"
 
-function App() {
+const App = () => {
   return (
-   <Router>
-      <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/posts/*" element={<Posts />} />
-      </Routes>
-   </Router>
+    <ErrorBoundery>
+      <RouterProvider router={router} />
+    </ErrorBoundery>
   )
 }
 
