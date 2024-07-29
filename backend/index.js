@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 
 dotenv.config();
 
@@ -14,6 +15,11 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors({
+    origin: `http://localhost:5173`,
+    credentials: true
+}));
 
 
 app.use("/api/posts", postsRouter);
