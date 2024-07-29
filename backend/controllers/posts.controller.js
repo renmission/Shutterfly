@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import crypto from "crypto";
 import Post from "../models/posts.model.js";
-import { errorHandler } from "../utils/errors.js";
+import ErrorHandler from "../utils/error.handler.js";
 import { uploadFile, deleteFile, getObjectSignedUrl } from "../utils/s3.js";
 
 const generatedFileName = (bytes = 32) => crypto.randomBytes(bytes).toString("hex");
@@ -14,7 +14,7 @@ export async function getPosts(req, res, next) {
         }
         res.json(posts);
     } catch (error) {
-        next(errorHandler(500, error.message));        
+        next(new ErrorHandler(500, error.message));        
     }
 };
 
@@ -31,7 +31,7 @@ export async function createPost(req, res, next) {
         await post.save();
         res.status(201).json(post);
     } catch (error) {
-        next(errorHandler(500, error.message));
+        next(new ErrorHandler(500, error.message));
     }
 };
 
@@ -40,12 +40,12 @@ export async function deletePost(req, res, next) {
     try {
         const post = await Post.findById({ _id: id });
         if (!post) {
-            return next(errorHandler(404, "Post not found"));
+            return next(new ErrorHandler(404, "Post not found"));
         }
         await deleteFile(post.imageUrl);
         await Post.findByIdAndDelete({ _id: id });
         res.json(post);
     } catch (error) {
-        next(errorHandler(500, error.message));
+        next(new ErrorHandler(500, error.message));
     }
 }

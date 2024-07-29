@@ -5,7 +5,7 @@ const PostsGrid = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/posts");
+    const response = await fetch("/api/v1/posts");
     const data = await response.json();
     setPosts(data);
   }
@@ -16,7 +16,7 @@ const PostsGrid = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`/api/posts/${id}`, {
+      const res = await fetch(`/api/v1/posts/${id}`, {
         method: 'DELETE'
       });
 
