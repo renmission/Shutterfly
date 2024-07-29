@@ -16,6 +16,7 @@ dotenv.config();
 
 import postsRouter from "./routes/posts.route.js";
 import authRouter from "./routes/auth.route.js";
+import ErrorHandler from "./utils/error.handler.js";
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log("Connected to MongoDB");
@@ -31,12 +32,12 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
-const limiter = rateLimit({
-    max: 5,
-    windowMs: 60 * 60 * 1000,
-    message: 'Too many requests from this IP, please try again in an hour'
-});
-app.use('/api', limiter);
+// const limiter = rateLimit({
+//     max: 5,
+//     windowMs: 60 * 60 * 1000,
+//     message: 'Too many requests from this IP, please try again in an hour'
+// });
+// app.use('/api', limiter);
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
@@ -54,7 +55,7 @@ app.use("/api/v1/posts", postsRouter);
 // });
 
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+    next(new ErrorHandler(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 app.listen(PORT, () => {
