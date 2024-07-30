@@ -5,14 +5,25 @@ import InputBox from '../../../components/Input/Input';
 import Button from '../../../components/Button/Button';
 
 const PostsCreate = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    file: null,
+  });
   const [error, setError] = useState('');
-  const [file, setFile] = useState(null);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { title, content, file } = formData;
     if (!title || !content) {
       setError('Title and content are required');
       return;
@@ -28,8 +39,7 @@ const PostsCreate = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setTitle('');
-      setContent('');
+      setFormData({ title: '', content: '', file: null });
       setError('');
       console.log('Post created successfully');
       navigate('/posts');
@@ -47,16 +57,18 @@ const PostsCreate = () => {
           <label className="block text-gray-700">Title</label>
           <InputBox
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name='title'
+            value={formData.title}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700">Content</label>
           <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            name='content'
+            value={formData.content}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -64,7 +76,8 @@ const PostsCreate = () => {
           <label className="block text-gray-700">Upload File</label>
           <InputBox
             type='file'
-            onChange={(e) => setFile(e.target.files[0])}
+            name='file'
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

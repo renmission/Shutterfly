@@ -16,6 +16,7 @@ dotenv.config();
 
 import postsRouter from "./routes/posts.route.js";
 import authRouter from "./routes/auth.route.js";
+import usersRouter from "./routes/users.route.js";
 import ErrorHandler from "./utils/error.handler.js";
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
@@ -48,6 +49,7 @@ app.use(cors({
 }));
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/posts", postsRouter);
 
 // app.get('*', (req, res) => {

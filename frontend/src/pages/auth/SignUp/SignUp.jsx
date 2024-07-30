@@ -35,11 +35,11 @@ const SignUp = () => {
   };
   return (
     <div  className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>SignUp</h1>
+      <h2 className='text-xl text-center text-neutral-700 mb-7'>Join us today and create your account!</h2>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <input type='text' placeholder='Username' id='username' className='bg-slate-100 p-3 rounded-lg' onChange={handleChange} />
-        <input type='email' placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' onChange={handleChange} />
-        <input type='password' placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' onChange={handleChange} />
+        <input type='text' placeholder='Username' id='username' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
+        <input type='email' placeholder='Email' id='email' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
+        <input type='password' placeholder='Password' id='password' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
         <button type='submit' disabled={loading} className='bg-slate-900 text-white p-3 rounded-lg uppercase'>
           { loading ? 'Loading...' : 'Sign Up' }
         </button>
@@ -47,7 +47,7 @@ const SignUp = () => {
       
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
-        <Link to="/signin">
+        <Link to="/auth/signin">
           <span className='text-blue-500'>Sign In</span>
         </Link>
       </div>

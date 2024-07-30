@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 
-const InputBox = ({ value, onChange, className, type = 'text', disabled = false, placeholder = '' }) => {
+const InputBox = ({ name, value, onChange, className, type = 'text', disabled = false, placeholder = '' }) => {
   return (
-    <input 
+    <input
+      name={name}
       value={value}
       onChange={onChange}
       className={className}
@@ -14,8 +15,9 @@ const InputBox = ({ value, onChange, className, type = 'text', disabled = false,
 }
 
 InputBox.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.oneOf(['text', 'password', 'email', 'number', 'file']),
   disabled: PropTypes.bool,
