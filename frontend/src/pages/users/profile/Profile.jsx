@@ -58,10 +58,6 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  console.log(formData);
-
-  console.log(currentUser.data);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();

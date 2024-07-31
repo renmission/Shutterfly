@@ -24,9 +24,6 @@ const PostDetails = () => {
         fetchPost();
     }, [dispatch]);
 
-    console.log(posts);
-
-
 
     return (
         <div className="max-w-2xl mx-auto p-6 rounded-lg mt-5 text-center shadow-lg bg-white">

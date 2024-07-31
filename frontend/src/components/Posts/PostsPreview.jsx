@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 const PostsPreview = ({ _id: id, title, content, imageUrl, userId, onDelete }) => {
   const { currentUser } = useSelector((state) => state.user);
   const { firstName, lastName, profilePicture } = userId || {};
-
-  console.log('userId', userId);
   
   return (
     <div className='border border-gray-300 rounded-md p-4'>
