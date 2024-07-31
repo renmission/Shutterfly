@@ -1,6 +1,6 @@
 # Shutterfly
 
-Shutterfly is a full-stack web application built with the MERN stack that allows users to upload, view, and manage images using AWS S3 for storage.
+Shutterfly is a full-stack web application built with the MERN stack that allows users to upload, view, and manage images using AWS S3 for storage and Firebase;
 
 ## Table of Contents
 
