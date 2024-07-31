@@ -4,14 +4,14 @@ import PostsPreview from "../../../components/Posts/PostsPreview";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePostFail, deletePostStart, deletePostSuccess, fetchPostsFail, fetchPostsStart, fetchPostsSuccess } from "../../../app/posts/postSlice";
 
-const PostsGrid = () => {
+const MyPosts = () => {
   const { posts, loading, error } = useSelector((state) => state.post);
   const dispacth = useDispatch();
 
   const fetchPosts = async () => {
     dispacth(fetchPostsStart());
     try {
-      const response = await fetch("/api/v1/posts");
+      const response = await fetch("/api/v1/posts/my-posts");
       const data = await response.json();
       dispacth(fetchPostsSuccess(data));
     } catch (error) {
@@ -40,6 +40,7 @@ const PostsGrid = () => {
 
   return (
     <div className="max-w-6xl mx-auto mt-5 p-5">
+        <h1 className="text-3xl font-semibold text-center mb-6">My Posts</h1>
       { loading && <p className="text-blue-500 text-start text-xl font-semibold mt-4 mb-4">Loading...</p>}
         {posts.length > 0 ? (
            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -62,4 +63,4 @@ const PostsGrid = () => {
   )
 }
 
-export default PostsGrid
+export default MyPosts

@@ -1,14 +1,17 @@
 import { Router } from "express";
-import { createPost, deletePost, getPosts } from "../controllers/posts.controller.js";
+import { createPost, deletePost, getPost, getPosts, myPosts } from "../controllers/posts.controller.js";
 
 const router = Router();
 
 import multer from "multer";
+import { protect } from "../controllers/auth.controller.js";
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.get("/", getPosts);
-router.post("/", upload.single('file'), createPost);
-router.delete('/:id', deletePost);
+router.get("/", protect, getPosts);
+router.get("/:id", protect, getPost);
+router.get("/my-posts", protect, myPosts);
+router.post("/", protect, upload.single('file'), createPost);
+router.delete('/:id', protect, deletePost);
 
 export default router;

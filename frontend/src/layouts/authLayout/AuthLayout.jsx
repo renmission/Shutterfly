@@ -15,9 +15,9 @@ const AuthLayout = () => {
     <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div className="w-full max-w-md">
       <div className="flex items-center justify-center">
-        <MdCamera className="text-4xl text-black" />
+        <MdCamera className="text-4xl text-blue-600" />
         <Link to="/">
-          <h1 className="text-4xl font-bold">Shutterfly</h1>
+          <h1 className="text-4xl font-bold text-blue-600">Shutterfly</h1>
         </Link>
       </div>
       <Outlet />

@@ -4,6 +4,7 @@ import { MdCamera } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from '../../app/users/userSlice';
+import Button from "../Button/Button";
 
 const NavigationHeader = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -45,31 +46,28 @@ const NavigationHeader = () => {
     }
   };
 
+  const handleCreatePost = () => {
+    navigate('/posts/submit');
+  };
+
+
   return (
     <div className="bg-white border-b border-gray-300">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         {/* Brand Icon */}
         <div className="flex items-center space-x-2">
-          <MdCamera className="text-2xl text-black" />
-          <Link to="/">
-            <h1 className="text-2xl font-bold">Shutterfly</h1>
+          <MdCamera className="text-2xl text-blue-600" />
+          <Link to="/posts">
+            <h1 className="text-2xl font-bold text-blue-600">Shutterfly</h1>
           </Link>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex-grow mx-4">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
 
         {/* Navigation Icons */}
         <div className="flex items-center space-x-4">
           {currentUser ? (
            <div className="relative flex items-center space-x-4">
-           <Link to="users/likes" className="text-black hover:text-gray-700">
+           <Link to="users/my-posts" className="text-black hover:text-gray-700">
              <FaHeart className="text-2xl" />
            </Link>
            <div className="relative" ref={dropdownRef}>
@@ -96,6 +94,13 @@ const NavigationHeader = () => {
                 </div>
               )}
             </div>
+            <div className="flex justify-center">
+            <Button 
+              text="Create Post" 
+              onClick={handleCreatePost} 
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-300"
+            />
+        </div>
          </div>
           ) : (
             <Link to="auth/signin" className="text-black hover:text-gray-700">

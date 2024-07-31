@@ -8,6 +8,7 @@ import {
   updateUserSuccess,
  } from '../../../app/users/userSlice';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [image, setImage] = useState(undefined);
@@ -18,6 +19,13 @@ const Profile = () => {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/auth/signin');
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     if (image) {
@@ -26,7 +34,7 @@ const Profile = () => {
   }, [image]);
 
   if (!currentUser) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   const handleFileUpload = async (file) => {
@@ -51,6 +59,8 @@ const Profile = () => {
   };
 
   console.log(formData);
+
+  console.log(currentUser.data);
 
 
   const handleSubmit = async (e) => {
@@ -106,14 +116,23 @@ const Profile = () => {
           )}
         </div>
 
-
-        <label htmlFor='username' className='w-full'>
+        <label htmlFor='firstName' className='w-full'>
           <input 
             type='text' 
-            placeholder='Username' 
-            id='username' 
-            className='bg-slate-100 p-3 rounded-lg w-full my-3' 
-            defaultValue={currentUser.data.username}  
+            placeholder='FirstName' 
+            id='firstName' 
+            className='bg-slate-200 p-3 rounded-lg w-full my-3' 
+            defaultValue={currentUser.data.firstName}  
+            onChange={handleChange} 
+          />
+        </label>
+        <label htmlFor='lastName' className='w-full'>
+          <input 
+            type='text' 
+            placeholder='LastName' 
+            id='lastName' 
+            className='bg-slate-200 p-3 rounded-lg w-full my-3' 
+            defaultValue={currentUser.data.lastName}  
             onChange={handleChange} 
           />
         </label>
@@ -121,7 +140,7 @@ const Profile = () => {
           <input 
             type='email' 
             placeholder='Email' 
-            id='email' className='bg-slate-100 p-3 rounded-lg w-full my-3' 
+            id='email' className='bg-slate-200 p-3 rounded-lg w-full my-3' 
             defaultValue={currentUser.data.email}
             onChange={handleChange} 
           />
@@ -130,7 +149,7 @@ const Profile = () => {
           <input 
             type='password' 
             placeholder='Password' 
-            id='password' className='bg-slate-100 p-3 rounded-lg w-full my-3' 
+            id='password' className='bg-slate-200 p-3 rounded-lg w-full my-3' 
             onChange={handleChange} 
           />
         </label>

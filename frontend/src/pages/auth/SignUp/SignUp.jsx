@@ -27,7 +27,7 @@ const SignUp = () => {
         setError(true);
         return;
       }
-      navigate('/');
+      navigate('/auth/signin');
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -37,7 +37,8 @@ const SignUp = () => {
     <div  className='p-3 max-w-lg mx-auto'>
       <h2 className='text-xl text-center text-neutral-700 mb-7'>Join us today and create your account!</h2>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <input type='text' placeholder='Username' id='username' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
+        <input type='text' placeholder='firstName' id='firstName' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
+        <input type='text' placeholder='lastName' id='lastName' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
         <input type='email' placeholder='Email' id='email' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
         <input type='password' placeholder='Password' id='password' className='bg-slate-200 p-3 rounded-lg' onChange={handleChange} />
         <button type='submit' disabled={loading} className='bg-slate-900 text-white p-3 rounded-lg uppercase'>

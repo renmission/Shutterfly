@@ -30,18 +30,3 @@ export async function updateUser(req, res, next) {
         next(new ErrorHandler(500, error.message));
     }
 }
-
-export async function deleteUser(req, res, next) {
-    if(req.user.id !== req.params.id) {
-        return next(new ErrorHandler(403, 'You are not authorized to perform this action'));
-    }
-
-    try {
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).json({
-            message: 'User has been deleted'
-        });
-    } catch (error) {
-        next(new ErrorHandler(500, error.message));
-    }
-}

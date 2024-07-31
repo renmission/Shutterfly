@@ -29,9 +29,10 @@ export const createSendToken = (user, statusCode, res) => {
 
 export async function signup(req, res, next) {
     try {
-        const { username, email, password } = req.body;
+        const { firstName, lastName, email, password } = req.body;
         const newUser = await User.create({
-            username,
+            firstName,
+            lastName,
             email,
             password
         });
