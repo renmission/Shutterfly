@@ -34,11 +34,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
 const limiter = rateLimit({
-    max: 20,
+    max: 100,
     windowMs: 60 * 60 * 1000,
     message: 'Too many requests from this IP, please try again in an hour'
 });
-app.use('/api', limiter);
+app.use('/api/v1', limiter);
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
