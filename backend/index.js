@@ -33,12 +33,12 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
-// const limiter = rateLimit({
-//     max: 5,
-//     windowMs: 60 * 60 * 1000,
-//     message: 'Too many requests from this IP, please try again in an hour'
-// });
-// app.use('/api', limiter);
+const limiter = rateLimit({
+    max: 20,
+    windowMs: 60 * 60 * 1000,
+    message: 'Too many requests from this IP, please try again in an hour'
+});
+app.use('/api', limiter);
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
@@ -52,9 +52,6 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/posts", postsRouter);
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// });
 
 app.all('*', (req, res, next) => {
     next(new ErrorHandler(`Can't find ${req.originalUrl} on this server`, 404));
