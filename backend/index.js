@@ -32,19 +32,20 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
-
-const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
-    message: 'Too many requests from this IP, please try again in an hour'
-});
-app.use('/api/v1', limiter);
+app.use(rateLimit({
+    windowMs: process.env.RATE_LIMIT_WINDOWS,
+    max: process.env.RATE_LIMIT_MAX,
+    standardHeaders: true,
+    legacyHeaders: false,
+    keyGenerator: (req) => req.ip,
+    message: { error: 'Too many requests, try again later.' },
+  }),);
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 app.use(cors({
-    origin: `http://localhost:5173`,
+    origin: `https://${process.env.HOST}:${process.env.PORT}`,
     credentials: true
 }));
 
@@ -64,6 +65,7 @@ app.listen(PORT, () => {
 app.use((error, req, res, next) => {
     const statusCode = error.statusCode || 500;
     const message = error.message || "Internal Server Error";
+    console.log(error);
     return res.status(statusCode).json({
         success: false,
         message,
